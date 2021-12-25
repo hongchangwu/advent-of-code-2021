@@ -1,0 +1,3 @@
+(test
+ (name day02)
+ (libraries containers))
