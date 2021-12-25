@@ -1,0 +1,6 @@
+(lang dune 2.9)
+
+(context default)
+
+(env
+ (_ (flags (:standard -open Containers))))
