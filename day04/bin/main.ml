@@ -1,4 +1,4 @@
-let usage = "day04 FILE"
+let usage = "day04 [--reverse] FILE"
 
 let reverse = ref false
 

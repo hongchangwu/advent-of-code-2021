@@ -1,4 +1,4 @@
-let usage = "day02 FILE"
+let usage = "day02 [--aim] FILE"
 
 let aim = ref false
 

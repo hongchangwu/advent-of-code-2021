@@ -1,4 +1,4 @@
-let usage = "day01 FILE"
+let usage = "day01 [--window] FILE"
 
 let window_size = ref 1
 
