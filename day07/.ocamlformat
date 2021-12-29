@@ -1,0 +1,2 @@
+profile = ocamlformat
+cases-exp-indent = 2
