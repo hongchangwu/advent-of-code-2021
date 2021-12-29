@@ -1,4 +1,4 @@
-let usage = "day06 FILE DAYS"
+let usage = "day06 [--days] FILE"
 
 let input_file = ref ""
 
