@@ -1,4 +1,4 @@
-let solve timers days =
+let solve days timers =
   let table = Hashtbl.create 9 in
   List.iter
     (fun k ->
@@ -27,3 +27,11 @@ let solve timers days =
   in
   simulate 1 ;
   table |> Hashtbl.to_seq_values |> Seq.fold ( + ) 0
+
+module Part1 = struct
+  let solve = solve 80
+end
+
+module Part2 = struct
+  let solve = solve 256
+end

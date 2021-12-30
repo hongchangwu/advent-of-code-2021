@@ -1,10 +1,10 @@
-let usage = "day02 [--aim] FILE"
+let usage = "day02 [--part2] FILE"
 
-let aim = ref false
+let part2 = ref false
 
 let input_file = ref ""
 
-let specs = [("--aim", Arg.Set aim, "Whether to track the aim value")]
+let specs = [("--part2", Arg.Set part2, "Solve part 2")]
 
 let anon filename = input_file := filename
 
@@ -27,4 +27,5 @@ let () =
           let lines = read_lines_seq in_chan in
           lines |> Seq.map parse_line |> Seq.to_list ))
   in
-  Printf.printf "%d\n" (Day02.solve ~aim:!aim directions)
+  let solve = if !part2 then Day02.Part2.solve else Day02.Part1.solve in
+  Printf.printf "%d\n" (solve directions)

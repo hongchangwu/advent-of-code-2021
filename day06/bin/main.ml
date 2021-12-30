@@ -1,11 +1,10 @@
-let usage = "day06 [--days] FILE"
+let usage = "day06 [--part2] FILE"
+
+let part2 = ref false
 
 let input_file = ref ""
 
-let days = ref 0
-
-let specs =
-  [("--days", Arg.Set_int days, "The number of days for the simulation")]
+let specs = [("--part2", Arg.Set part2, "Solve part 2")]
 
 let anon filename = input_file := filename
 
@@ -18,4 +17,5 @@ let () =
           |> Option.get_exn_or "EOF reached"
           |> String.split_on_char ',' |> List.map int_of_string ))
   in
-  Printf.printf "%d\n" (Day06.solve timers !days)
+  let solve = if !part2 then Day06.Part2.solve else Day06.Part1.solve in
+  Printf.printf "%d\n" (solve timers)

@@ -79,3 +79,11 @@ let solve ~diagonal lines =
                  insert_and_update diagonals1 d x x (fun x -> (x, x + d)) ) ) )
     lines ;
   Hashtbl.length points
+
+module Part1 = struct
+  let solve = solve ~diagonal:false
+end
+
+module Part2 = struct
+  let solve = solve ~diagonal:true
+end

@@ -27,3 +27,11 @@ let solve ~aim directions =
       List.fold_left advance (0, 0) directions
   in
   horizontal * depth
+
+module Part1 = struct
+  let solve = solve ~aim:false
+end
+
+module Part2 = struct
+  let solve = solve ~aim:true
+end

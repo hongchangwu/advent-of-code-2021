@@ -10,6 +10,10 @@ module Board : sig
   val score : int -> t -> int option
 end
 
-val solve : int list -> Board.t list -> int
+module Part1 : sig
+  val solve : int list -> Board.t list -> int
+end
 
-val solve_reverse : int list -> Board.t list -> int
+module Part2 : sig
+  val solve : int list -> Board.t list -> int
+end

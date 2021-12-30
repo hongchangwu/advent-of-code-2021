@@ -1,11 +1,10 @@
-let usage = "day04 [--reverse] FILE"
+let usage = "day04 [--part2] FILE"
 
-let reverse = ref false
+let part2 = ref false
 
 let input_file = ref ""
 
-let specs =
-  [("--reverse", Arg.Set reverse, "Find out the board that will win last")]
+let specs = [("--part2", Arg.Set part2, "Solve part 2")]
 
 let anon filename = input_file := filename
 
@@ -42,5 +41,5 @@ let () =
           let boards = parse_boards [] in
           (numbers, boards) ))
   in
-  let solve = if !reverse then Day04.solve_reverse else Day04.solve in
+  let solve = if !part2 then Day04.Part2.solve else Day04.Part1.solve in
   Printf.printf "%d\n" (solve numbers boards)

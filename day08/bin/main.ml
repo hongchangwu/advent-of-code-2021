@@ -1,4 +1,4 @@
-let usage = "day08 FILE"
+let usage = "day08 [--part2] FILE"
 
 let part2 = ref false
 

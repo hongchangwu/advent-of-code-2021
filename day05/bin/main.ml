@@ -1,10 +1,10 @@
-let usage = "day05 FILE"
+let usage = "day05 [--part2] FILE"
 
-let diagonal = ref false
+let part2 = ref false
 
 let input_file = ref ""
 
-let specs = [("--diagonal", Arg.Set diagonal, "Include diagonal lines")]
+let specs = [("--part2", Arg.Set part2, "Solve part 2")]
 
 let anon filename = input_file := filename
 
@@ -37,4 +37,5 @@ let () =
         in
         parse_lines [] )
   in
-  Printf.printf "%d\n" (Day05.solve ~diagonal:!diagonal lines)
+  let solve = if !part2 then Day05.Part2.solve else Day05.Part1.solve in
+  Printf.printf "%d\n" (solve lines)

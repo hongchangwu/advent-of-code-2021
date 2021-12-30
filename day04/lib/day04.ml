@@ -30,50 +30,54 @@ module Board = struct
     else None
 end
 
-let solve numbers boards =
-  let rec find_winner number = function
-    | [] ->
-      None
-    | board :: boards ->
-      Option.or_lazy
-        ~else_:(fun () -> find_winner number boards)
-        (Board.score number board)
-  in
-  let rec aux i = function
-    | [] ->
-      failwith "No winner"
-    | number :: numbers -> (
-      List.iter (Board.mark number) boards ;
-      if i < 5 then aux (succ i) numbers
-      else
-        match find_winner number boards with
-        | None ->
-          aux (succ i) numbers
-        | Some score ->
-          score )
-  in
-  aux 0 numbers
+module Part1 = struct
+  let solve numbers boards =
+    let rec find_winner number = function
+      | [] ->
+        None
+      | board :: boards ->
+        Option.or_lazy
+          ~else_:(fun () -> find_winner number boards)
+          (Board.score number board)
+    in
+    let rec aux i = function
+      | [] ->
+        failwith "No winner"
+      | number :: numbers -> (
+        List.iter (Board.mark number) boards ;
+        if i < 5 then aux (succ i) numbers
+        else
+          match find_winner number boards with
+          | None ->
+            aux (succ i) numbers
+          | Some score ->
+            score )
+    in
+    aux 0 numbers
+end
 
-let solve_reverse numbers boards =
-  let rec aux i boards = function
-    | [] ->
-      failwith "No winner"
-    | number :: numbers -> (
-      List.iter (Board.mark number) boards ;
-      if i < 5 then aux (succ i) boards numbers
-      else
-        match
-          List.map (fun board -> (board, Board.score number board)) boards
-        with
-        | [(_, Some score)] ->
-          score
-        | scores ->
-          let boards =
-            List.filter_map
-              (fun (board, score) ->
-                if Option.is_none score then Some board else None )
-              scores
-          in
-          aux (succ i) boards numbers )
-  in
-  aux 0 boards numbers
+module Part2 = struct
+  let solve numbers boards =
+    let rec aux i boards = function
+      | [] ->
+        failwith "No winner"
+      | number :: numbers -> (
+        List.iter (Board.mark number) boards ;
+        if i < 5 then aux (succ i) boards numbers
+        else
+          match
+            List.map (fun board -> (board, Board.score number board)) boards
+          with
+          | [(_, Some score)] ->
+            score
+          | scores ->
+            let boards =
+              List.filter_map
+                (fun (board, score) ->
+                  if Option.is_none score then Some board else None )
+                scores
+            in
+            aux (succ i) boards numbers )
+    in
+    aux 0 boards numbers
+end

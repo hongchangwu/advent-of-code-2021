@@ -52,11 +52,11 @@ module Part2 = struct
       |> Option.get_exn_or ("Key error: " ^ s)
     in
     let find_mapping ss =
-      let two = ref None in
-      let three = ref None in
-      let four = ref None in
+      let two = ref [] in
+      let three = ref [] in
+      let four = ref [] in
       let six = ref [] in
-      let seven = ref None in
+      let seven = ref [] in
       let to_char_set s = s |> String.to_seq |> CharSet.of_seq in
       let to_singleton = function
         | [x] ->
@@ -68,26 +68,42 @@ module Part2 = struct
         (fun s ->
           match String.length s with
           | 2 ->
-            two := Some (to_char_set s)
+            two := to_char_set s :: !two
           | 3 ->
-            three := Some (to_char_set s)
+            three := to_char_set s :: !three
           | 4 ->
-            four := Some (to_char_set s)
+            four := to_char_set s :: !four
           | 5 ->
             (* We don't even need these to decode *)
             ()
           | 6 ->
             six := to_char_set s :: !six
           | 7 ->
-            seven := Some (to_char_set s)
+            seven := to_char_set s :: !seven
           | n ->
             failwith ("Unexpected string length: " ^ string_of_int n) )
         ss ;
-      let two = !two |> Option.get_exn_or "Expected 1 pattern of length 2" in
-      let three =
-        !three |> Option.get_exn_or "Expected 1 pattern of length 3"
+      let two =
+        match !two with
+        | [x] ->
+          x
+        | _ ->
+          failwith "Expected 1 pattern of length 2"
       in
-      let four = !four |> Option.get_exn_or "Expected 1 pattern of length 4" in
+      let three =
+        match !three with
+        | [x] ->
+          x
+        | _ ->
+          failwith "Expected 1 pattern of length 3"
+      in
+      let four =
+        match !four with
+        | [x] ->
+          x
+        | _ ->
+          failwith "Expected 1 pattern of length 4"
+      in
       let six1, six2, six3 =
         match !six with
         | [x; y; z] ->
@@ -96,7 +112,11 @@ module Part2 = struct
           failwith "Expected 3 patterns of length 6"
       in
       let seven =
-        !seven |> Option.get_exn_or "Expected 1 pattern of length 7"
+        match !seven with
+        | [x] ->
+          x
+        | _ ->
+          failwith "Expected 1 pattern of length 7"
       in
       let a = CharSet.(diff three two |> to_list |> to_singleton) in
       let bd = CharSet.diff four two in

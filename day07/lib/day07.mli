@@ -1,3 +1,7 @@
-val solve : int list -> int
+module Part1 : sig
+  val solve : int list -> int
+end
 
-val solve_proportional : int list -> int
+module Part2 : sig
+  val solve : int list -> int
+end

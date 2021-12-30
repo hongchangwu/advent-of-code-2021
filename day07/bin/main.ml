@@ -1,10 +1,10 @@
-let usage = "day07 [--proportional] FILE"
+let usage = "day07 [--part2] FILE"
 
-let proportional = ref false
+let part2 = ref false
 
 let input_file = ref ""
 
-let specs = [("--proportional", Arg.Set proportional, "Use proportional cost")]
+let specs = [("--part2", Arg.Set part2, "Solve part 2")]
 
 let anon filename = input_file := filename
 
@@ -17,5 +17,5 @@ let () =
           |> Option.get_exn_or "EOF reached"
           |> String.split_on_char ',' |> List.map int_of_string ))
   in
-  let solve = if !proportional then Day07.solve_proportional else Day07.solve in
+  let solve = if !part2 then Day07.Part2.solve else Day07.Part1.solve in
   Printf.printf "%d\n" (solve positions)
