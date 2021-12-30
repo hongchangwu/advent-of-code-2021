@@ -29,8 +29,6 @@
 (* 9: 6 *)
 
 open Fun.Infix
-module CharSet = Set.Make (Char)
-module StringMap = Map.Make (String)
 
 module Part1 = struct
   let solve entries =
@@ -43,6 +41,9 @@ module Part1 = struct
 end
 
 module Part2 = struct
+  module CharSet = Set.Make (Char)
+  module StringMap = Map.Make (String)
+
   let solve =
     let sort_string s =
       s |> String.to_seq |> Seq.sort ~cmp:Char.compare |> String.of_seq
@@ -58,11 +59,9 @@ module Part2 = struct
       let six = ref [] in
       let seven = ref [] in
       let to_char_set s = s |> String.to_seq |> CharSet.of_seq in
-      let to_singleton = function
-        | [x] ->
-          x
-        | _ ->
-          failwith "Expected a single element"
+      let to_singleton set =
+        set |> CharSet.to_list
+        |> function [x] -> x | _ -> failwith "Expected a single element"
       in
       List.iter
         (fun s ->
@@ -118,18 +117,12 @@ module Part2 = struct
         | _ ->
           failwith "Expected 1 pattern of length 7"
       in
-      let a = CharSet.(diff three two |> to_list |> to_singleton) in
+      let a = CharSet.diff three two |> to_singleton in
       let bd = CharSet.diff four two in
       let cf = two in
-      let six1_complement =
-        CharSet.(diff seven six1 |> to_list |> to_singleton)
-      in
-      let six2_complement =
-        CharSet.(diff seven six2 |> to_list |> to_singleton)
-      in
-      let six3_complement =
-        CharSet.(diff seven six3 |> to_list |> to_singleton)
-      in
+      let six1_complement = CharSet.diff seven six1 |> to_singleton in
+      let six2_complement = CharSet.diff seven six2 |> to_singleton in
+      let six3_complement = CharSet.diff seven six3 |> to_singleton in
       let c, (d, e) =
         if CharSet.mem six1_complement cf then
           ( six1_complement
@@ -147,23 +140,23 @@ module Part2 = struct
               (six1_complement, six2_complement)
             else (six2_complement, six1_complement) )
       in
-      let f = CharSet.(remove c cf |> to_list |> to_singleton) in
-      let b = CharSet.(remove d bd |> to_list |> to_singleton) in
+      let f = CharSet.remove c cf |> to_singleton in
+      let b = CharSet.remove d bd |> to_singleton in
       let g =
-        CharSet.(
-          diff seven (of_list [a; b; c; d; e; f]) |> to_list |> to_singleton)
+        CharSet.(diff seven (of_list [a; b; c; d; e; f]) |> to_singleton)
       in
+      let to_key = List.sort Char.compare %> String.of_list in
       StringMap.of_list
-        [ ([a; b; c; e; f; g] |> List.sort Char.compare |> String.of_list, 0)
-        ; ([c; f] |> List.sort Char.compare |> String.of_list, 1)
-        ; ([a; c; d; e; g] |> List.sort Char.compare |> String.of_list, 2)
-        ; ([a; c; d; f; g] |> List.sort Char.compare |> String.of_list, 3)
-        ; ([b; c; d; f] |> List.sort Char.compare |> String.of_list, 4)
-        ; ([a; b; d; f; g] |> List.sort Char.compare |> String.of_list, 5)
-        ; ([a; b; d; e; f; g] |> List.sort Char.compare |> String.of_list, 6)
-        ; ([a; c; f] |> List.sort Char.compare |> String.of_list, 7)
-        ; ([a; b; c; d; e; f; g] |> List.sort Char.compare |> String.of_list, 8)
-        ; ([a; b; c; d; f; g] |> List.sort Char.compare |> String.of_list, 9) ]
+        [ (to_key [a; b; c; e; f; g], 0)
+        ; (to_key [c; f], 1)
+        ; (to_key [a; c; d; e; g], 2)
+        ; (to_key [a; c; d; f; g], 3)
+        ; (to_key [b; c; d; f], 4)
+        ; (to_key [a; b; d; f; g], 5)
+        ; (to_key [a; b; d; e; f; g], 6)
+        ; (to_key [a; c; f], 7)
+        ; (to_key [a; b; c; d; e; f; g], 8)
+        ; (to_key [a; b; c; d; f; g], 9) ]
     in
     let decode mapping =
       List.fold_left (fun acc s -> (acc * 10) + get_digit s mapping) 0
