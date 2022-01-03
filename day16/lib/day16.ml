@@ -152,24 +152,33 @@ module Part2 = struct
         | 3 ->
           (* maximum *)
           List.fold_left (fun acc p -> max acc (eval p)) Int.min_int packets
-        | 5 ->
+        | 5 -> (
           (* greater than *)
-          let hd, packets' = List.hd_tl packets in
-          let x = eval hd in
-          let y = eval (List.hd packets') in
-          if x > y then 1 else 0
-        | 6 ->
+          match packets with
+          | [first; second] ->
+            let x = eval first in
+            let y = eval second in
+            if x > y then 1 else 0
+          | _ ->
+            failwith "Expected 2 sub-packets exactly" )
+        | 6 -> (
           (* less than *)
-          let hd, packets' = List.hd_tl packets in
-          let x = eval hd in
-          let y = eval (List.hd packets') in
-          if x < y then 1 else 0
-        | 7 ->
+          match packets with
+          | [first; second] ->
+            let x = eval first in
+            let y = eval second in
+            if x < y then 1 else 0
+          | _ ->
+            failwith "Expected 2 sub-packets exactly" )
+        | 7 -> (
           (* equal to *)
-          let hd, packets' = List.hd_tl packets in
-          let x = eval hd in
-          let y = eval (List.hd packets') in
-          if x = y then 1 else 0
+          match packets with
+          | [first; second] ->
+            let x = eval first in
+            let y = eval second in
+            if x = y then 1 else 0
+          | _ ->
+            failwith "Expected 2 sub-packets exactly" )
         | _ ->
           failwith ("Invalid type ID: " ^ string_of_int id) )
     in
