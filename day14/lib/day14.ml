@@ -48,9 +48,9 @@ let solve steps template rules =
               acc
               |> PairMap.update pair (Option.map (Fun.flip ( - ) c))
               |> PairMap.update pair1
-                   (Option.map (( + ) c) %> Option.or_ ~else_:(Some c))
+                   Option.(map (( + ) c) %> or_ ~else_:(some c))
               |> PairMap.update pair2
-                   (Option.map (( + ) c) %> Option.or_ ~else_:(Some c)) )
+                   Option.(map (( + ) c) %> or_ ~else_:(some c)) )
           pairs pairs
       in
       let head =
