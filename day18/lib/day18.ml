@@ -1,7 +1,7 @@
 open Fun.Infix
 
 module Tree = struct
-  type t = {left: elem; right: elem}
+  type t = {left : elem; right : elem}
 
   and elem = Atom of int | Tree of t
 
@@ -49,9 +49,9 @@ module Tree = struct
       | [] ->
         None
       | Left right :: path ->
-        Some (Tree {left= elem; right}, path)
+        Some (Tree {left = elem; right}, path)
       | Right left :: path ->
-        Some (Tree {left; right= elem}, path)
+        Some (Tree {left; right = elem}, path)
 
     let rec root : t -> t =
      fun loc -> match up loc with None -> loc | Some loc -> root loc
@@ -98,7 +98,7 @@ module Tree = struct
     let rec reduce_once (elem, path) level acc =
       match elem with
       (* explode *)
-      | Tree {left= Atom a; right= Atom b} when level >= 4 ->
+      | Tree {left = Atom a; right = Atom b} when level >= 4 ->
         let path =
           Zipper.(path |> modify_left (( + ) a) |> modify_right (( + ) b))
         in
@@ -107,7 +107,7 @@ module Tree = struct
       | Atom x when x >= 10 ->
         let a = x / 2 in
         let b = x - a in
-        let tree = Tree {left= Atom a; right= Atom b} in
+        let tree = Tree {left = Atom a; right = Atom b} in
         Split (tree, path) :: acc
       | Atom _ ->
         acc

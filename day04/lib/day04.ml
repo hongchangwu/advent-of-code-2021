@@ -1,6 +1,6 @@
 module Board = struct
   type t =
-    {numbers: (int, int * int) Hashtbl.t; rows: int array; columns: int array}
+    {numbers : (int, int * int) Hashtbl.t; rows : int array; columns : int array}
 
   let make rows =
     let numbers =

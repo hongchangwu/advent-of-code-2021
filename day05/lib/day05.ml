@@ -23,7 +23,7 @@ let solve ~diagonal lines =
       |> Interval_map.query_interval_list interval
       |> List.iter (fun (ivl, _) ->
              match Interval_map.Interval.overlap_interval interval ivl with
-             | Some {low= Included low; high= Included high} ->
+             | Some {low = Included low; high = Included high} ->
                List.range low high
                |> List.iter (fun j -> Hashtbl.replace points (make_point j) ())
              | _ ->

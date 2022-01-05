@@ -1,7 +1,7 @@
 module Packet = struct
-  type t = {version: int; type_: type_}
+  type t = {version : int; type_ : type_}
 
-  and type_ = Literal of int | Operator of {id: int; packets: t list}
+  and type_ = Literal of int | Operator of {id : int; packets : t list}
 end
 
 let ( ** ) = Int.( ** )
@@ -96,7 +96,7 @@ and parse_one bits size : Packet.t * bool list * int =
   let type_id = int_of_bits chunk in
   if type_id = 4 then
     let x, bits, size = parse_literal bits size in
-    ({version; type_= Literal x}, bits, size)
+    ({version; type_ = Literal x}, bits, size)
   else
     let chunk, bits = List.take_drop 1 bits in
     let size = size - 1 in
@@ -106,13 +106,13 @@ and parse_one bits size : Packet.t * bool list * int =
       let size = size - 15 in
       let length = int_of_bits chunk in
       let packets, bits, size = parse_multi_by_total_bits length bits size in
-      ({version; type_= Operator {id= type_id; packets}}, bits, size)
+      ({version; type_ = Operator {id = type_id; packets}}, bits, size)
     else if length_type = 1 then
       let chunk, bits = List.take_drop 11 bits in
       let size = size - 11 in
       let length = int_of_bits chunk in
       let packets, bits, size = parse_multi_by_num_packets length bits size in
-      ({version; type_= Operator {id= type_id; packets}}, bits, size)
+      ({version; type_ = Operator {id = type_id; packets}}, bits, size)
     else failwith ("Invalid length type: " ^ string_of_int length_type)
 
 module Part1 = struct

@@ -1,5 +1,5 @@
 module Tree : sig
-  type t = private {left: elem; right: elem}
+  type t = private {left : elem; right : elem}
 
   and elem = private Atom of int | Tree of t
 

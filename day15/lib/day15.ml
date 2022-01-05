@@ -1,7 +1,7 @@
 (* Dijkstra's algorithm *)
 
 module Elem = struct
-  type t = {key: int; mutable rank: int; mutable idx: int}
+  type t = {key : int; mutable rank : int; mutable idx : int}
 
   let idx {idx; _} = idx
 
@@ -16,7 +16,7 @@ let solve riskmap =
   let m = Vector.size riskmap in
   let n = Vector.(size (get riskmap 0)) in
   let nodes =
-    Array.init (m * n) (fun x -> Elem.{key= x; rank= Int.max_int; idx= -1})
+    Array.init (m * n) (fun x -> Elem.{key = x; rank = Int.max_int; idx = -1})
   in
   let heap = IndexedHeap.create () in
   let source = nodes.(0) in
