@@ -64,6 +64,5 @@ module Part2 = struct
     for i = 1 to 4 do
       Vector.(append riskmap (map (map (add i)) riskmap'))
     done ;
-    (* Format.printf "%a\n" pp riskmap ; *)
     solve riskmap
 end

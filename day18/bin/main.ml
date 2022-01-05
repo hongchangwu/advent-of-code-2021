@@ -23,6 +23,5 @@ let () =
           in
           parse_lines [] ))
   in
-  (* List.iter (Format.printf "%a\n" Day18.Tree.pp) trees ; *)
   let solve = if !part2 then Day18.Part2.solve else Day18.Part1.solve in
   Printf.printf "%d\n" (solve trees)
