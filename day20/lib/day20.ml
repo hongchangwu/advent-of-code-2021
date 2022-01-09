@@ -62,31 +62,24 @@ let enhance enhancement ({pixels; default} as image_map : ImageMap.t) =
   in
   ImageMap.make pixels default
 
+let solve n enhancement light_pixels =
+  let light_pixels =
+    List.fold_left
+      (fun acc k -> CoordMap.add k true acc)
+      CoordMap.empty light_pixels
+  in
+  let image_map = ref (ImageMap.make light_pixels false) in
+  let enhance = enhance enhancement in
+  for _ = 1 to n do
+    image_map := enhance !image_map
+  done ;
+  let ImageMap.{pixels; _} = !image_map in
+  pixels |> CoordMap.to_seq |> Seq.filter snd |> Seq.length
+
 module Part1 = struct
-  let solve enhancement light_pixels =
-    let light_pixels =
-      List.fold_left
-        (fun acc k -> CoordMap.add k true acc)
-        CoordMap.empty light_pixels
-    in
-    let image_map = ImageMap.make light_pixels false in
-    let enhance = enhance enhancement in
-    let ImageMap.{pixels; _} = image_map |> enhance |> enhance in
-    CoordMap.(pixels |> to_seq |> Seq.filter snd |> Seq.length)
+  let solve = solve 2
 end
 
 module Part2 = struct
-  let solve enhancement light_pixels =
-    let light_pixels =
-      List.fold_left
-        (fun acc k -> CoordMap.add k true acc)
-        CoordMap.empty light_pixels
-    in
-    let image_map = ref (ImageMap.make light_pixels false) in
-    let enhance = enhance enhancement in
-    for _ = 1 to 50 do
-      image_map := enhance !image_map
-    done ;
-    let ImageMap.{pixels; _} = !image_map in
-    CoordMap.(pixels |> to_seq |> Seq.filter snd |> Seq.length)
+  let solve = solve 50
 end
