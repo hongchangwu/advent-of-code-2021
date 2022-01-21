@@ -20,7 +20,7 @@ let parse_line line =
     failwith ("Invalid line: " ^ line)
 
 let () =
-  Arg.parse specs anon usage ;
+  Arg.parse specs anon usage;
   let directions =
     IO.(
       with_in !input_file (fun in_chan ->

@@ -17,19 +17,19 @@ let solve ~acc ~next ~terminate energymap =
       (fun (i, j) ->
         i >= 0 && i < m && j >= 0 && j < n
         && Vector.(get (get energymap i) j) <> 0 )
-      [ (i - 1, j)
-      ; (i + 1, j)
-      ; (i, j - 1)
-      ; (i, j + 1)
-      ; (i - 1, j - 1)
-      ; (i - 1, j + 1)
-      ; (i + 1, j - 1)
-      ; (i + 1, j + 1) ]
+      [ (i - 1, j);
+        (i + 1, j);
+        (i, j - 1);
+        (i, j + 1);
+        (i - 1, j - 1);
+        (i - 1, j + 1);
+        (i + 1, j - 1);
+        (i + 1, j + 1) ]
   in
   let increment (i, j) =
     let x = Vector.(get (get energymap i) j) in
     let x' = if x = 9 then 0 else x + 1 in
-    Vector.(set (get energymap i) j x') ;
+    Vector.(set (get energymap i) j x');
     x'
   in
   let rec simulate acc i =
@@ -41,7 +41,7 @@ let solve ~acc ~next ~terminate energymap =
       List.(
         iter
           (fun point -> if increment point = 0 then Queue.add point queue)
-          (product (fun i j -> (i, j)) (range' 0 m) (range' 0 n))) ;
+          (product (fun i j -> (i, j)) (range' 0 m) (range' 0 n)));
       let rec bfs visited =
         match Queue.take_opt queue with
         | None ->
@@ -52,7 +52,7 @@ let solve ~acc ~next ~terminate energymap =
             let visited' = CoordSet.add point visited in
             List.iter
               (fun point -> if increment point = 0 then Queue.add point queue)
-              (neighbors point) ;
+              (neighbors point);
             bfs visited'
       in
       let visited = bfs CoordSet.empty in

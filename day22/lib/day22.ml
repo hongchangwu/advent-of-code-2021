@@ -2,7 +2,7 @@ module Interval = struct
   type t = {low : int; high : int}
 
   let make low high =
-    assert (low <= high) ;
+    assert (low <= high);
     {low; high}
 
   let overlaps i1 i2 = not (i1.high < i2.low || i2.high < i1.low)
@@ -16,7 +16,7 @@ module Cuboid = struct
   type t = {x1 : int; x2 : int; y1 : int; y2 : int; z1 : int; z2 : int}
 
   let make ~x1 ~x2 ~y1 ~y2 ~z1 ~z2 =
-    assert (x1 <= x2 && y1 <= y2 && z1 <= z2) ;
+    assert (x1 <= x2 && y1 <= y2 && z1 <= z2);
     {x1; x2; y1; y2; z1; z2}
 
   let count {x1; x2; y1; y2; z1; z2} =

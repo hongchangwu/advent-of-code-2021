@@ -81,7 +81,7 @@ module Part2 = struct
             seven := to_char_set s :: !seven
           | n ->
             failwith ("Unexpected string length: " ^ string_of_int n) )
-        ss ;
+        ss;
       let two =
         match !two with
         | [x] ->
@@ -125,18 +125,18 @@ module Part2 = struct
       let six3_complement = CharSet.diff seven six3 |> to_singleton in
       let c, (d, e) =
         if CharSet.mem six1_complement cf then
-          ( six1_complement
-          , if CharSet.mem six2_complement bd then
+          ( six1_complement,
+            if CharSet.mem six2_complement bd then
               (six2_complement, six3_complement)
             else (six3_complement, six2_complement) )
         else if CharSet.mem six2_complement cf then
-          ( six2_complement
-          , if CharSet.mem six1_complement bd then
+          ( six2_complement,
+            if CharSet.mem six1_complement bd then
               (six1_complement, six3_complement)
             else (six3_complement, six1_complement) )
         else
-          ( six3_complement
-          , if CharSet.mem six1_complement bd then
+          ( six3_complement,
+            if CharSet.mem six1_complement bd then
               (six1_complement, six2_complement)
             else (six2_complement, six1_complement) )
       in
@@ -147,16 +147,16 @@ module Part2 = struct
       in
       let to_key = List.sort Char.compare %> String.of_list in
       StringMap.of_list
-        [ (to_key [a; b; c; e; f; g], 0)
-        ; (to_key [c; f], 1)
-        ; (to_key [a; c; d; e; g], 2)
-        ; (to_key [a; c; d; f; g], 3)
-        ; (to_key [b; c; d; f], 4)
-        ; (to_key [a; b; d; f; g], 5)
-        ; (to_key [a; b; d; e; f; g], 6)
-        ; (to_key [a; c; f], 7)
-        ; (to_key [a; b; c; d; e; f; g], 8)
-        ; (to_key [a; b; c; d; f; g], 9) ]
+        [ (to_key [a; b; c; e; f; g], 0);
+          (to_key [c; f], 1);
+          (to_key [a; c; d; e; g], 2);
+          (to_key [a; c; d; f; g], 3);
+          (to_key [b; c; d; f], 4);
+          (to_key [a; b; d; f; g], 5);
+          (to_key [a; b; d; e; f; g], 6);
+          (to_key [a; c; f], 7);
+          (to_key [a; b; c; d; e; f; g], 8);
+          (to_key [a; b; c; d; f; g], 9) ]
     in
     let decode mapping =
       List.fold_left (fun acc s -> (acc * 10) + get_digit s mapping) 0

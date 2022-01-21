@@ -16,8 +16,8 @@ module Board = struct
     | None ->
       ()
     | Some (i, j) ->
-      rows.(i) <- rows.(i) + 1 ;
-      columns.(j) <- columns.(j) + 1 ;
+      rows.(i) <- rows.(i) + 1;
+      columns.(j) <- columns.(j) + 1;
       Hashtbl.remove numbers number
 
   let has_won {rows; columns; _} =
@@ -44,7 +44,7 @@ module Part1 = struct
       | [] ->
         failwith "No winner"
       | number :: numbers -> (
-        List.iter (Board.mark number) boards ;
+        List.iter (Board.mark number) boards;
         if i < 5 then aux (succ i) numbers
         else
           match find_winner number boards with
@@ -62,7 +62,7 @@ module Part2 = struct
       | [] ->
         failwith "No winner"
       | number :: numbers -> (
-        List.iter (Board.mark number) boards ;
+        List.iter (Board.mark number) boards;
         if i < 5 then aux (succ i) boards numbers
         else
           match

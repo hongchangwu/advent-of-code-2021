@@ -18,7 +18,7 @@ module DotSet = struct
           (fun x ->
             if mem (x, y) dots then Format.char fmt '#' else Format.char fmt '.'
             )
-          (List.range 0 m) ;
+          (List.range 0 m);
         Format.newline fmt () )
       (List.range 0 n)
 end

@@ -6,10 +6,10 @@ module Part1 = struct
     List.iter
       (fun (a, b) ->
         Hashtbl.update graph ~k:a ~f:(fun _ -> function
-          | None -> Some [b] | Some vs -> Some (b :: vs) ) ;
+          | None -> Some [b] | Some vs -> Some (b :: vs) );
         Hashtbl.update graph ~k:b ~f:(fun _ -> function
           | None -> Some [a] | Some vs -> Some (a :: vs) ) )
-      edges ;
+      edges;
     let rec dfs paths path visited node =
       if String.equal node "end" then List.rev ("end" :: path) :: paths
       else if StringSet.mem node visited then paths
@@ -44,10 +44,10 @@ module Part2 = struct
     List.iter
       (fun (a, b) ->
         Hashtbl.update graph ~k:a ~f:(fun _ -> function
-          | None -> Some [b] | Some vs -> Some (b :: vs) ) ;
+          | None -> Some [b] | Some vs -> Some (b :: vs) );
         Hashtbl.update graph ~k:b ~f:(fun _ -> function
           | None -> Some [a] | Some vs -> Some (a :: vs) ) )
-      edges ;
+      edges;
     let rec dfs paths path chosen visited node =
       if String.equal node "end" then
         PathSet.add (List.rev ("end" :: path)) paths

@@ -182,6 +182,6 @@ module Part2 = struct
             in
             max_magnitude := max magnitude !max_magnitude
         done
-      done ;
+      done;
       !max_magnitude
 end

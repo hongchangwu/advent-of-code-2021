@@ -16,7 +16,7 @@ module Part1 = struct
         | c ->
           failwith ("Invalid digit: " ^ Char.to_string c)
       in
-      List.iter (String.iteri f) readings ;
+      List.iter (String.iteri f) readings;
       table |> Hashtbl.to_seq |> Frequencies.of_seq
     in
     let gamma, epsilon =

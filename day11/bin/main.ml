@@ -9,7 +9,7 @@ let specs = [("--part2", Arg.Set part2, "Solve part 2")]
 let anon filename = input_file := filename
 
 let () =
-  Arg.parse specs anon usage ;
+  Arg.parse specs anon usage;
   let zero = Char.to_int '0' in
   let energymap =
     let parse_line line =

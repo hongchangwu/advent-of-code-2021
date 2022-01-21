@@ -15,30 +15,30 @@ module CoordSet = Set.Make (Coord)
 
 let rotations coords =
   let mappers =
-    [ Fun.id
-    ; (fun (x, y, z) -> (x, z, -y))
-    ; (fun (x, y, z) -> (x, -y, -z))
-    ; (fun (x, y, z) -> (x, -z, y))
-    ; (fun (x, y, z) -> (-x, -y, z))
-    ; (fun (x, y, z) -> (-x, -z, -y))
-    ; (fun (x, y, z) -> (-x, y, -z))
-    ; (fun (x, y, z) -> (-x, z, y))
-    ; (fun (x, y, z) -> (-y, x, z))
-    ; (fun (x, y, z) -> (-z, x, -y))
-    ; (fun (x, y, z) -> (y, x, -z))
-    ; (fun (x, y, z) -> (z, x, y))
-    ; (fun (x, y, z) -> (y, -x, z))
-    ; (fun (x, y, z) -> (z, -x, -y))
-    ; (fun (x, y, z) -> (-y, -x, -z))
-    ; (fun (x, y, z) -> (-z, -x, y))
-    ; (fun (x, y, z) -> (y, z, x))
-    ; (fun (x, y, z) -> (z, -y, x))
-    ; (fun (x, y, z) -> (-y, -z, x))
-    ; (fun (x, y, z) -> (-z, y, x))
-    ; (fun (x, y, z) -> (-y, z, -x))
-    ; (fun (x, y, z) -> (-z, -y, -x))
-    ; (fun (x, y, z) -> (y, -z, -x))
-    ; (fun (x, y, z) -> (z, y, -x)) ]
+    [ Fun.id;
+      (fun (x, y, z) -> (x, z, -y));
+      (fun (x, y, z) -> (x, -y, -z));
+      (fun (x, y, z) -> (x, -z, y));
+      (fun (x, y, z) -> (-x, -y, z));
+      (fun (x, y, z) -> (-x, -z, -y));
+      (fun (x, y, z) -> (-x, y, -z));
+      (fun (x, y, z) -> (-x, z, y));
+      (fun (x, y, z) -> (-y, x, z));
+      (fun (x, y, z) -> (-z, x, -y));
+      (fun (x, y, z) -> (y, x, -z));
+      (fun (x, y, z) -> (z, x, y));
+      (fun (x, y, z) -> (y, -x, z));
+      (fun (x, y, z) -> (z, -x, -y));
+      (fun (x, y, z) -> (-y, -x, -z));
+      (fun (x, y, z) -> (-z, -x, y));
+      (fun (x, y, z) -> (y, z, x));
+      (fun (x, y, z) -> (z, -y, x));
+      (fun (x, y, z) -> (-y, -z, x));
+      (fun (x, y, z) -> (-z, y, x));
+      (fun (x, y, z) -> (-y, z, -x));
+      (fun (x, y, z) -> (-z, -y, -x));
+      (fun (x, y, z) -> (y, -z, -x));
+      (fun (x, y, z) -> (z, y, -x)) ]
   in
   mappers |> Seq.of_list |> Seq.map (Fun.flip List.map coords)
 
@@ -115,6 +115,6 @@ module Part2 = struct
         let distance = manhattan_distance scanners.(i) scanners.(j) in
         max_distance := max !max_distance distance
       done
-    done ;
+    done;
     !max_distance
 end

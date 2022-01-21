@@ -1,3 +1,5 @@
 profile = ocamlformat
+break-separators = after
 cases-exp-indent = 2
 field-space = loose
+sequence-style = terminator

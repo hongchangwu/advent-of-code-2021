@@ -27,7 +27,7 @@ let solve ~diagonal lines =
                List.range low high
                |> List.iter (fun j -> Hashtbl.replace points (make_point j) ())
              | _ ->
-               () ) ;
+               () );
       let ivm = Interval_map.add interval () ivm in
       Hashtbl.replace target i ivm
   in
@@ -35,49 +35,49 @@ let solve ~diagonal lines =
     (fun ((x1, y1), (x2, y2)) ->
       if x1 = x2 then (
         let x = x1 in
-        insert_and_update rows x y1 y2 (fun y -> (x, y)) ;
+        insert_and_update rows x y1 y2 (fun y -> (x, y));
         List.range y1 y2
         |> List.iter (fun y ->
-               insert_and_update columns y x x (fun x -> (x, y)) ;
+               insert_and_update columns y x x (fun x -> (x, y));
                if diagonal then (
                  let d = y - x in
                  let s = x + y in
-                 insert_and_update diagonals1 d x x (fun x -> (x, x + d)) ;
+                 insert_and_update diagonals1 d x x (fun x -> (x, x + d));
                  insert_and_update diagonals2 s x x (fun x -> (x, s - x)) ) ) )
       else if y1 = y2 then (
         let y = y1 in
-        insert_and_update columns y x1 x2 (fun x -> (x, y)) ;
+        insert_and_update columns y x1 x2 (fun x -> (x, y));
         List.range x1 x2
         |> List.iter (fun x ->
-               insert_and_update rows x y y (fun y -> (x, y)) ;
+               insert_and_update rows x y y (fun y -> (x, y));
                if diagonal then (
                  let d = y - x in
                  let s = x + y in
-                 insert_and_update diagonals1 (y - x) x x (fun x -> (x, x + d)) ;
+                 insert_and_update diagonals1 (y - x) x x (fun x -> (x, x + d));
                  insert_and_update diagonals2 (x + y) x x (fun x -> (x, s - x))
                  ) ) )
       else if diagonal then (
         if sgn (x2 - x1) = sgn (y2 - y1) then (
           let d = y1 - x1 in
-          insert_and_update diagonals1 d x1 x2 (fun x -> (x, x + d)) ;
+          insert_and_update diagonals1 d x1 x2 (fun x -> (x, x + d));
           List.range x1 x2
           |> List.iter (fun x ->
                  let y = x + d in
                  let s = x + y in
-                 insert_and_update rows x y y (fun y -> (x, y)) ;
-                 insert_and_update columns y x x (fun x -> (x, y)) ;
+                 insert_and_update rows x y y (fun y -> (x, y));
+                 insert_and_update columns y x x (fun x -> (x, y));
                  insert_and_update diagonals2 s x x (fun x -> (x, s - x)) ) )
         else
           let s = x1 + y1 in
-          insert_and_update diagonals2 s x1 x2 (fun x -> (x, s - x)) ;
+          insert_and_update diagonals2 s x1 x2 (fun x -> (x, s - x));
           List.range x1 x2
           |> List.iter (fun x ->
                  let y = s - x in
                  let d = y - x in
-                 insert_and_update rows x y y (fun y -> (x, y)) ;
-                 insert_and_update columns y x x (fun x -> (x, y)) ;
+                 insert_and_update rows x y y (fun y -> (x, y));
+                 insert_and_update columns y x x (fun x -> (x, y));
                  insert_and_update diagonals1 d x x (fun x -> (x, x + d)) ) ) )
-    lines ;
+    lines;
   Hashtbl.length points
 
 module Part1 = struct

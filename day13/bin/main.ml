@@ -9,7 +9,7 @@ let specs = [("--part2", Arg.Set part2, "Solve part 2")]
 let anon filename = input_file := filename
 
 let () =
-  Arg.parse specs anon usage ;
+  Arg.parse specs anon usage;
   let dots, folds =
     let parse_dot line =
       match String.split_on_char ',' line with
@@ -56,5 +56,5 @@ let () =
   in
   let solve = if !part2 then Day13.Part2.solve else Day13.Part1.solve in
   let dots = solve dots folds in
-  Format.printf "%d\n" (Day13.DotSet.cardinal dots) ;
+  Format.printf "%d\n" (Day13.DotSet.cardinal dots);
   Format.printf "%a\n" Day13.DotSet.pp dots

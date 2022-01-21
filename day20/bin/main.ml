@@ -9,7 +9,7 @@ let specs = [("--part2", Arg.Set part2, "Solve part 2")]
 let anon filename = input_file := filename
 
 let () =
-  Arg.parse specs anon usage ;
+  Arg.parse specs anon usage;
   let enhancement, light_pixels =
     let parse_enhancement line =
       line |> String.to_seq
@@ -31,7 +31,7 @@ let () =
             | Some line ->
               parse_enhancement line
           in
-          ignore (read_line in_chan) ;
+          ignore (read_line in_chan);
           let light_pixels =
             in_chan |> read_lines_seq
             |> Seq.mapi (fun x line ->

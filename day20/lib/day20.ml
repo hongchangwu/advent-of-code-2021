@@ -20,15 +20,15 @@ let to_binary_num =
   List.fold_left (fun acc b -> (acc lsl 1) + if b then 1 else 0) 0
 
 let neighbors (x, y) =
-  [ (x - 1, y - 1)
-  ; (x - 1, y)
-  ; (x - 1, y + 1)
-  ; (x, y - 1)
-  ; (x, y)
-  ; (x, y + 1)
-  ; (x + 1, y - 1)
-  ; (x + 1, y)
-  ; (x + 1, y + 1) ]
+  [ (x - 1, y - 1);
+    (x - 1, y);
+    (x - 1, y + 1);
+    (x, y - 1);
+    (x, y);
+    (x, y + 1);
+    (x + 1, y - 1);
+    (x + 1, y);
+    (x + 1, y + 1) ]
 
 let enhance_pixel enhancement image_map coord =
   let idx =
@@ -72,7 +72,7 @@ let solve n enhancement light_pixels =
   let enhance = enhance enhancement in
   for _ = 1 to n do
     image_map := enhance !image_map
-  done ;
+  done;
   let ImageMap.{pixels; _} = !image_map in
   pixels |> CoordMap.to_seq |> Seq.filter snd |> Seq.length
 

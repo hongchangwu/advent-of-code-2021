@@ -5,7 +5,7 @@ let solve days timers =
       Hashtbl.update table
         ~f:(fun _ -> function None -> Some 1 | Some x -> Some (x + 1))
         ~k )
-    timers ;
+    timers;
   let rec simulate day =
     if day > days then ()
     else
@@ -22,10 +22,10 @@ let solve days timers =
               Hashtbl.get_or table (x + 1) ~default:0
           in
           Hashtbl.replace table k v )
-        (List.range 0 8) ;
+        (List.range 0 8);
       simulate (succ day)
   in
-  simulate 1 ;
+  simulate 1;
   table |> Hashtbl.to_seq_values |> Seq.fold ( + ) 0
 
 module Part1 = struct
